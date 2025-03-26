@@ -156,9 +156,9 @@ class TicTacToe:
             if all(self.board[i] == symbol for i in condition):
                 return True
         return False
-
-# main
-if __name__ == "__main__":
-    root = Tk()
-    app = TicTacToe(root)
-    root.mainloop()
+    
+# 測試單個遊戲
+# if __name__ == "__main__":
+#     root = Tk()
+#     app = TicTacToe(root)
+#     root.mainloop()

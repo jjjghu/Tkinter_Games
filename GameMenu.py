@@ -1,6 +1,7 @@
 from tkinter import *
 from three_hall import three_hall 
 from TicTacToe import TicTacToe 
+from MineSweeper import MineSweeper
 
 class GameMenu:
     def __init__(self):
@@ -25,29 +26,37 @@ class GameMenu:
         # 顯示選單
         self.menu_frame.tkraise()
 
-        # 進入 Tkinter 事件迴圈
+    def start(self):
         self.window.mainloop()
-
+        
     def griding(self, frame, rows, cols):
         for i in range(rows):
             frame.grid_rowconfigure(i, weight=1)
         for i in range(cols):
             frame.grid_columnconfigure(i, weight=1)
     
-    #遊戲1:Montyhall
-    def start_monty_hall(self):
+    # 遊戲1: Montyhall
+    def enter_monty_hall(self):
         self.window.withdraw()  
         MontyHall_window = Toplevel(self.window) 
         game = three_hall(MontyHall_window)  
         self.window.wait_window(MontyHall_window)  
         self.window.deiconify()
 
-    #遊戲2:TicTacToe
-    def start_TicTacToe(self):
+    # 遊戲2: TicTacToe
+    def enter_TicTacToe(self):
         self.window.withdraw()  
         TicTacToe_window = Toplevel(self.window) 
         game = TicTacToe(TicTacToe_window)  
         self.window.wait_window(TicTacToe_window)  
+        self.window.deiconify()
+        
+    # 遊戲3: MineSweeper
+    def enter_minesweeper(self):
+        self.window.withdraw()  
+        MineSweeper_window = Toplevel(self.window) 
+        game = MineSweeper(MineSweeper_window)  
+        self.window.wait_window(MineSweeper_window)  
         self.window.deiconify()
 
     def setup_menu(self):
@@ -59,21 +68,28 @@ class GameMenu:
 
         monty_hall_btn = Button(self.menu_frame, text="Monty Hall", font=("Arial", 14),
                                 bg="lightblue", activebackground="lightblue",
-                                command=self.start_monty_hall)
+                                command=self.enter_monty_hall)
         monty_hall_btn.grid(row=2, column=2, padx=50, pady=20, sticky="NSEW")
 
 
         monty_hall_btn = Button(self.menu_frame, text="Tic Tac Toe", font=("Arial", 14),
                                 bg="lightblue", activebackground="lightblue",
-                                command=self.start_TicTacToe)
+                                command=self.enter_TicTacToe)
         monty_hall_btn.grid(row=3, column=2, padx=50, pady=20, sticky="NSEW")
+        
+
+        minesweeper_btn = Button(self.menu_frame, text="Mine Sweeper", font=("Arial", 14),
+                                bg="lightblue", activebackground="lightblue",
+                                command=self.enter_minesweeper)
+        
+        minesweeper_btn.grid(row=4, column=2, padx=50, pady=20, sticky="NSEW")
 
 
         exit_btn = Button(self.menu_frame, text="退出", font=("Arial", 14),
                           bg="red", activebackground="darkred",
                           command=self.window.quit)
         exit_btn.grid(row=6, column=2, padx=50, pady=20, sticky="NSEW")
-
-
+        
 if __name__ == "__main__":
-    GameMenu()
+    gamemenu = GameMenu()
+    gamemenu.start()

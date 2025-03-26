@@ -12,22 +12,25 @@ class Cell:
         self.flagged  = False
         self.exploded = False
 
-class MinesweeperGame:
-    def __init__(self, master, width=16, height=16, mine_count=32):
-        self.master     = master
+class MineSweeper:
+    def __init__(self, window, width=16, height=16, mine_count=32):
+        self.window     = window
         self.width      = width
         self.height     = height
         self.mine_count = mine_count
         self.game_over  = False
         self.cells      = []
         self.buttons    = []
-        self.frame      = tk.Frame(master)
+        self.frame      = tk.Frame(window)
         self.frame.pack()
         
         self.load_images()
         self.create_board()
         self.new_game()
-
+    
+    def start(self):
+        self.window.mainloop()
+        
     def load_images(self):
         self.tile_images = {}
         self.tile_images["Tile1"]       = tk.PhotoImage(file="Images/Tile1.png")
@@ -60,7 +63,7 @@ class MinesweeperGame:
                 btn.grid(row=r, column=c, padx=0, pady=0)
                 row_buttons.append(btn)
             self.buttons.append(row_buttons)
-        self.reset_button = tk.Button(self.master, text="重置遊戲", command=self.new_game)
+        self.reset_button = tk.Button(self.window, text="重置遊戲", command=self.new_game)
         self.reset_button.pack(pady=10)
 
     def new_game(self):
@@ -182,9 +185,3 @@ class MinesweeperGame:
                     else:
                         img = self.tile_images["TileUnknown"]
                 btn.config(image=img)
-                
-if __name__ == "__main__":
-    mainTk = tk.Tk()
-    mainTk.title("踩地雷")
-    game = MinesweeperGame(mainTk)
-    mainTk.mainloop()
